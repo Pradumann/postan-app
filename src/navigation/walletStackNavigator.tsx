@@ -41,7 +41,6 @@ export default function WalletStackScreen() {
                 name="Wallet"
                 component={WalletScreen}
             />
-
             {
                 SharedStackScreens.map((item: any, index: number) => <WalletStack.Screen
                     key={`${item.name as string}_${index}`}

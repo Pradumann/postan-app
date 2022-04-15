@@ -11,6 +11,10 @@ import { navigatorGlobals } from '@globals/navigatorGlobals';
 import CloutFeedLoader from '@components/loader/cloutFeedLoader.component';
 import { api, cache } from '@services';
 import { RouteProp } from '@react-navigation/native';
+import { backgroundColor } from '../../common/values/colors';
+import { paddings, radius } from '../../common/values/dimens';
+import TitleText from '../../common/texts/TitleText';
+import RegularText from '../../common/texts/RegularText';
 // https://open.er-api.com/v6/latest/USD
 
 interface Section {
@@ -272,13 +276,10 @@ export class WalletScreen extends React.Component<Props, State> {
         }
     }
 
+// <CloutFeedLoader />
     render() {
 
-        return <View style={[styles.container, themeStyles.containerColorMain]}>
-            {
-                this.state.isLoading ?
-                    <CloutFeedLoader />
-                    :
+        return (
                     <ScrollView
                         contentContainerStyle={styles.container}
                         refreshControl={
@@ -290,7 +291,134 @@ export class WalletScreen extends React.Component<Props, State> {
                             />
                         }
                     >
-                        <View style={[styles.balanceContainer, themeStyles.containerColorSub]}>
+
+                        <View style={{
+                            width: '100%',
+                            backgroundColor: backgroundColor.cardBackground,
+                            padding: paddings.cardPadding,
+                            borderRadius: radius.postCardRadius
+                        }}>
+                            <TitleText 
+                                value='Balance'                                
+                            />
+
+                            <View style={{
+                                flexDirection: 'row',
+                                marginTop: 24
+                            }}>
+
+                                <View>
+                                    <RegularText 
+                                        value='$DESO'
+                                    />
+                                    <RegularText 
+                                        value='INR'
+                                        style={{marginTop: 16}}
+                                    />
+                                </View>
+
+
+                                <View style={{marginLeft: 24}}>
+                                    <RegularText 
+                                        value='='
+                                    />
+                                    <RegularText 
+                                        value='='
+                                        style={{marginTop: 16}}
+                                    />
+                                </View>
+
+
+                                <View style={{marginLeft: 24}}>
+                                    <RegularText 
+                                        value={this.state.balanceDeSo}
+                                    />
+                                    <RegularText 
+                                        value={'₹'+this.state.balanceUsd}
+                                        style={{marginTop: 16}}
+                                    />
+                                </View>
+
+                            </View>
+                            
+
+                        </View>
+
+
+                        <View style={{
+                            width: '100%',
+                            backgroundColor: backgroundColor.cardBackground,
+                            padding: paddings.cardPadding,
+                            borderRadius: radius.postCardRadius,
+                            marginTop: 16
+                        }}>
+                            <TitleText 
+                                value='Exchange rate'                                
+                            />
+
+                            <View style={{
+                                flexDirection: 'row',
+                                marginTop: 24
+                            }}>
+
+                                <View>
+                                    <RegularText 
+                                        value='1 $DESO'
+                                    />
+                                    <RegularText 
+                                        value='Calculation'
+                                        style={{marginTop: 16}}
+                                    />
+                                </View>
+
+
+                                <View style={{marginLeft: 24}}>
+                                    <RegularText 
+                                        value='='
+                                    />
+                                    <RegularText 
+                                        value='='
+                                        style={{marginTop: 16}}
+                                    />
+                                </View>
+
+
+                                <View style={{marginLeft: 24}}>
+                                    <RegularText 
+                                       value={'~₹' + this.state.deSoPriceUsd}
+                                    />
+                                    <RegularText 
+                                        style={{marginTop: 16}}
+                                        value={this.state.balanceDeSo + ' * ' + this.state.deSoPriceUsd}
+                                    />
+                                    <RegularText 
+                                        style={{marginTop: 16}}
+                                        value={'= ' + this.state.balanceUsd}
+                                    />
+                                </View>
+
+                            </View>
+                            
+
+                        </View>
+
+
+                        {
+                            this.state.isLoading ? 
+                            <View style={{
+                                marginTop: 24,
+                                height: 80,
+                                width: '100%',
+                                alignItems:'center',
+                                justifyContent: 'center'
+                            }}>
+                             <CloutFeedLoader /> 
+                                
+                            </View>
+                            : null
+                        }
+
+                        {/* <View style={[styles.balanceContainer, themeStyles.containerColorSub]}>
                             <Text style={[styles.balanceText, themeStyles.fontColorSub]}>Balance ≈ ₹{this.state.balanceUsd}</Text>
                             <Text style={[styles.balanceDeSo, themeStyles.fontColorMain]}>{this.state.balanceDeSo} $DESO</Text>
                         </View>
@@ -298,18 +426,18 @@ export class WalletScreen extends React.Component<Props, State> {
                         <View style={[styles.deSoPriceContainer]}>
                             <Text style={[styles.deSoPriceText, themeStyles.fontColorMain]}>One $DESO</Text>
                             <Text style={[styles.deSoPriceText, themeStyles.fontColorMain]}>~₹{this.state.deSoPriceUsd}</Text>
-                        </View>
+                        </View> */}
 
-                        <View style={[styles.infoMessageContainer, styles.container, themeStyles.containerColorSub]}>
+                        {/* <View style={[styles.infoMessageContainer, styles.container, themeStyles.containerColorSub]}>
                             <Text style={[styles.infoText, themeStyles.fontColorMain]}>DESO Exchange is still not available. We are doing our best to support it as soon as possible.</Text>
                             <Text style={[styles.infoText, themeStyles.fontColorMain]}>
                                 Want to buy or sell DeSo?
                                 <Text style={styles.supportText} onPress={() => Linking.openURL('mailto:hello@talkapp.in?subject=Exchange%20DESO&body=I%20would%20like%20to%20buy/sell%20DESO.')}> Contact Us</Text>
                             </Text>
-                        </View>
+                        </View> */}
                     </ScrollView>
-            }
-        </View>;
+        )
+        
     }
 }
 
@@ -317,7 +445,9 @@ const styles = StyleSheet.create(
     {
         container: {
             flex: 1,
-            width: '100%'
+            width: '100%',
+            backgroundColor:backgroundColor.commonScreenBackground,
+            padding: paddings.cardPadding
         },
         deSoPriceContainer: {
             flexDirection: 'row',
