@@ -8,6 +8,8 @@ import { eventManager, globals, settingsGlobals } from '@globals';
 import { ChangeFollowersEvent, EventType, Profile, User } from '@types';
 import { themeStyles } from '@styles';
 import { StackNavigationProp } from '@react-navigation/stack';
+import TitleText from '../../common/texts/TitleText';
+import RegularText from 'src/common/texts/RegularText';
 
 interface Props {
     navigation: StackNavigationProp<ParamListBase>;
@@ -244,7 +246,13 @@ export class ProfileCard extends React.Component<Props, State> {
             <Image style={styles.profilePic} source={{ uri: this.props.profile.ProfilePic }} />
 
             <View style={styles.usernameContainer}>
-                <Text style={[styles.username, themeStyles.fontColorMain]} selectable={true}>{this.props.profile.Username}</Text>
+                <TitleText 
+                    style={{marginBottom: 6}}
+                    value={this.props.profile.Username}
+                />
+{/* 
+                <Text style={[styles.username, themeStyles.fontColorMain]} selectable={true}>{this.props.profile.Username}</Text> */}
+
                 {
                     this.props.profile.IsVerified &&
                     <MaterialIcons style={styles.verifiedIcon} name="verified" size={16} color="#007ef5" />
@@ -252,13 +260,19 @@ export class ProfileCard extends React.Component<Props, State> {
             </View>
 
             <View style={styles.description}>
-                <TextWithLinks
+                {/* <TouchableOpacity>
+                    <RegularText 
+                        value={this.props.profile.Description}
+                        style={{ maxWidth: Dimensions.get('window').width * 0.7}}
+                    />
+                </TouchableOpacity> */}
+                 <TextWithLinks
                     navigation={this.props.navigation}
                     isProfile
                     numberOfLines={5}
                     style={[styles.description, themeStyles.fontColorSub]}
                     text={this.props.profile.Description}
-                />
+                /> 
             </View>
             <View style={styles.infoContainer}>
                 <View style={styles.infoTextContainer}>

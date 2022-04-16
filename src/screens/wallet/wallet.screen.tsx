@@ -26,16 +26,16 @@ interface Section {
 interface State {
     isLoading: boolean;
     publicKey: string;
-    deSoPriceUsd: string;
-    balanceDeSo: string;
-    balanceUsd: string;
     creatorCoinsTotalValueUsd: string;
     selectedTab: WalletTab;
     usersYouHODL: CreatorCoinHODLer[];
     sections: Section[];
     refreshing: boolean;
-    usdToRupeesValue: number
     
+    usdToRupeesValue: number;
+    deSoPriceUsd: string;
+    balanceDeSo: string;
+    balanceUsd: string;
 }
 
 type RouteParams = {
@@ -102,7 +102,12 @@ export class WalletScreen extends React.Component<Props, State> {
 
     componentDidMount(): void {
         this._isMounted = true;
+
+        // download deso amount
+        // download exchange rate
     }
+
+
 
     componentWillUnmount(): void {
         this._isMounted = false;
@@ -276,6 +281,10 @@ export class WalletScreen extends React.Component<Props, State> {
         }
     }
 
+    onCopyWalletAddress = () => {
+
+    }
+
 // <CloutFeedLoader />
     render() {
 
@@ -353,7 +362,7 @@ export class WalletScreen extends React.Component<Props, State> {
                             marginTop: 16
                         }}>
                             <TitleText 
-                                value='Exchange rate'                                
+                                value='Current exchange rate'                                
                             />
 
                             <View style={{
@@ -389,7 +398,7 @@ export class WalletScreen extends React.Component<Props, State> {
                                     />
                                     <RegularText 
                                         style={{marginTop: 16}}
-                                        value={this.state.balanceDeSo + ' * ' + this.state.deSoPriceUsd}
+                                        value={this.state.deSoPriceUsd + ' * ' + this.state.balanceDeSo}
                                     />
                                     <RegularText 
                                         style={{marginTop: 16}}
@@ -403,6 +412,33 @@ export class WalletScreen extends React.Component<Props, State> {
                         </View>
 
 
+                        {/* <View style={{
+                              width: '100%',
+                              backgroundColor: backgroundColor.cardBackground,
+                              padding: paddings.cardPadding,
+                              borderRadius: radius.postCardRadius,
+                              marginTop: 16
+                        }}>
+                            <TitleText 
+                                value={'Wallet address'}
+                            />
+                             <View style={{
+                                flexDirection: 'row',
+                                marginTop: 24,
+                                justifyContent: 'space-between'
+                            }}>
+                               <RegularText 
+                                    value={'blahbalhblahblah'}
+                                    style={{maxWidth: '70%'}}
+                               /> 
+                            
+                                <RegularText 
+                                    value={'Copy'}
+                                /> 
+                          
+                            </View>
+                        </View>     */}
+
                         {
                             this.state.isLoading ? 
                             <View style={{
@@ -413,7 +449,7 @@ export class WalletScreen extends React.Component<Props, State> {
                                 justifyContent: 'center'
                             }}>
                              <CloutFeedLoader /> 
-                                
+                             <RegularText isSmall isGrey value='Updating...'/>
                             </View>
                             : null
                         }
