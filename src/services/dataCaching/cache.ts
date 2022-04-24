@@ -27,7 +27,6 @@ const addFollower = async (p_publicKey: string) => {
             user.PublicKeysBase58CheckFollowedByUser = [p_publicKey];
         } else {
             const publicKeyExists = user.PublicKeysBase58CheckFollowedByUser.indexOf(p_publicKey) !== -1;
-
             if (!publicKeyExists) {
                 user.PublicKeysBase58CheckFollowedByUser.push(p_publicKey);
             }
@@ -37,11 +36,9 @@ const addFollower = async (p_publicKey: string) => {
 
 const removeFollower = async (p_publicKey: string) => {
     const user = await loggedInUserCacheableObject.getData().catch(() => undefined);
-
     if (user) {
         if (user.PublicKeysBase58CheckFollowedByUser) {
             const publicKeyIndex = user.PublicKeysBase58CheckFollowedByUser.indexOf(p_publicKey);
-
             if (publicKeyIndex !== -1) {
                 user.PublicKeysBase58CheckFollowedByUser.splice(publicKeyIndex, 1);
             }

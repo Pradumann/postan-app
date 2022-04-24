@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, ActivityIndicator, Text, SectionList, RefreshControl } from 'react-native';
 import { ProfileScreenOptionsComponent } from './profileScreenOptions.component';
 import { CreatorCoinHODLerComponent } from '@components/creatorCoinHODLer.component';
-import { ProfileNotCompletedComponent } from '@components/profileNotCompleted.component';
+import  ProfileNotCompletedComponent  from '@components/profileNotCompleted.component';
 import { TabConfig, TabsComponent } from '@components/tabs.component';
 import { globals, navigatorGlobals } from '@globals';
 import { api, cache, calculateDeSoInUSD } from '@services';
